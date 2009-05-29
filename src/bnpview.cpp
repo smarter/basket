@@ -20,6 +20,9 @@
 
  /// NEW:
 
+#include "bnpview.h"
+#include "context/basketwidget.h"
+
 #include <QStackedWidget>
 #include <qregexp.h>
 #include <qpixmap.h>
@@ -56,7 +59,6 @@
 #include <kdebug.h>
 #include <cstdlib>
 
-#include "bnpview.h"
 #include "basket.h"
 #include "tools.h"
 #include "settings.h"
@@ -415,6 +417,9 @@ void BNPView::setupGlobalShortcuts()
 
 void BNPView::initialize()
 {
+        m_basketWidget = new BasketWidget(this);
+        //m_stack->addWidget(m_context);
+
 	/// Configure the List View Columns:
 	m_tree  = new BasketTreeListView(this);
 	m_tree->setHeaderLabel(i18n("Baskets"));
@@ -468,7 +473,17 @@ void BNPView::initialize()
 //		Global::likeBack->disableBar(); // See BNPView::shown() and BNPView::hide().
 
 	Global::likeBack->sendACommentAction(actionCollection()); // Just create it!
+
 	setupActions();
+
+	//Plasma::Containment *cont = m_context->corona()->containments().first();
+
+	QSignalMapper *contextMapper = new QSignalMapper(this);
+	contextMapper->setMapping(m_actInsertHtml, QString("basket_applet_notes"));
+
+        connect(m_actInsertHtml, SIGNAL(activated()), contextMapper, SLOT(map()));
+
+        connect(contextMapper, SIGNAL(mapped(const QString &)), m_basketWidget, SLOT(addApplet(const QString &)));
 
 	/// What's This Help for the tree:
 	m_tree->setWhatsThis(i18n(

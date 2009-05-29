@@ -40,6 +40,7 @@
 
  /// NEW:
 
+class BasketWidget;
 class QStackedWidget;
 class QDomDocument;
 class QDomElement;
@@ -344,6 +345,7 @@ class BASKET_EXPORT BNPView : public QSplitter
 		void leaveEvent(QEvent*);
 
 	private:
+		BasketWidget *m_basketWidget;
 		BasketTreeListView *m_tree;
 		QStackedWidget *m_stack;
 		bool          m_loading;

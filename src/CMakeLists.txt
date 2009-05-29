@@ -44,7 +44,13 @@ set(basketcommon_LIB_SRCS
     tools.cpp
     variouswidgets.cpp
     xmlwork.cpp
+
+    context/applet.cpp
+    context/basketview.cpp
+    context/basketwidget.cpp
 )
+
+add_subdirectory(context)
 
 kde4_add_ui_files(basketcommon_LIB_SRCS passwordlayout.ui)
 
@@ -60,6 +66,7 @@ target_link_libraries(basketcommon
   ${KDE4_KDEUI_LIBS}
   ${KDE4_KPARTS_LIBS}
   ${KDE4_KFILE_LIBS}
+  ${KDE4_PLASMA_LIBS}
   ${KDE4_PHONON_LIBRARY}
   ${QIMAGEBLITZ_LIBRARIES}
   ${GPGME_VANILLA_LIBRARIES})

@@ -25,7 +25,7 @@ void ColumnsContainment::init()
 {
     setContainmentType(Plasma::Containment::CustomContainment);
     m_layout = new ColumnsLayout;
-    //setLayout(m_layout);
+    setLayout(m_layout);
     setFormFactor(Plasma::Vertical);
 
     Containment::init();

@@ -5,11 +5,12 @@
 
 #include <KDE/KVBox>
 
+class BasketView;
+
 namespace Plasma
 {
     class Containment;
     class Corona;
-    class View;
 }
 
 class BASKET_EXPORT BasketWidget : public KVBox
@@ -27,7 +28,7 @@ public slots:
 
 private:
     Plasma::Corona *m_corona;
-    Plasma::View *m_view;
+    BasketView *m_view;
 
 private slots:
     void createView(Plasma::Containment *c);

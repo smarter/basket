@@ -7,6 +7,9 @@
 BasketView::BasketView( Plasma::Containment *cont, QWidget* parent )
     : Plasma::View( cont, parent )
 {
+    setScreen(-1);
+    cont->setPos(0, 0);
+    cont->updateConstraints();
 }
 
 void BasketView::resizeEvent( QResizeEvent* event )

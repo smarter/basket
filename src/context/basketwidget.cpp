@@ -19,6 +19,11 @@ BasketWidget::BasketWidget(QWidget *parent)
     m_corona->addContainment("basket_containment_columns");
 }
 
+QSize BasketWidget::sizeHint() const
+{
+    return QSize( static_cast<QWidget*>( parent() )->size().width() / 3, 300 );
+}
+
 void BasketWidget::createView(Plasma::Containment *containment)
 {
     disconnect( m_corona, SIGNAL(containmentAdded(Plasma::Containment*)),

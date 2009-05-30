@@ -6,6 +6,7 @@ include_directories( ../../..
 
 set(context_SRCS 
 	columnscontainment.cpp
+        columnslayout.cpp
 	)
 
 kde4_add_plugin(basket_containment_columns ${context_SRCS})

@@ -17,7 +17,10 @@ class BASKET_EXPORT BasketWidget : public KVBox
     Q_OBJECT
 public:
     BasketWidget(QWidget *parent = 0);
+
     Plasma::Corona* corona() const { return m_corona; }
+
+    QSize sizeHint() const;
 
 public slots:
     void addApplet(const QString &applet);

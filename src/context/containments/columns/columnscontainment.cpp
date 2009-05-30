@@ -1,5 +1,7 @@
 #include "columnscontainment.h"
 
+#include "columnslayout.h"
+
 ColumnsContainment::ColumnsContainment( QGraphicsItem* parent, const QString &serviceId, uint containmentId)
     : Plasma::Containment( parent, serviceId, containmentId )
 {
@@ -13,8 +15,17 @@ ColumnsContainment::ColumnsContainment(QObject *parent, const QVariantList &args
 }
 
 
+ColumnsContainment::~ColumnsContainment()
+{
+    setLayout(0);
+    delete m_layout;
+}
+
 void ColumnsContainment::init()
 {
+    setContainmentType(Plasma::Containment::CustomContainment);
+    m_layout = new ColumnsLayout;
+    //setLayout(m_layout);
     setFormFactor(Plasma::Vertical);
 
     Containment::init();
@@ -34,13 +45,10 @@ void ColumnsContainment::constraintsEvent(Plasma::Constraints constraints)
 
 void ColumnsContainment::onAppletAdded(Plasma::Applet *applet, const QPointF &pos)
 {
-    if (pos != QPointF(-1,-1) || applet->geometry().topLeft() != QPointF(0,0))
+    /*if (pos != QPointF(-1,-1) || applet->geometry().topLeft() != QPointF(0,0))
         return;
 
     int axisY = 0;
-    /*QMap<Applet *, QSizeF>::const_iterator iter;
-    for (iter = m_appletMap.constBegin(); iter < m_appletMap.constEnd(); ++iter)
-    {*/
 
     for (int i = 0; i < m_appletList.size(); ++i)
     {
@@ -50,13 +58,20 @@ void ColumnsContainment::onAppletAdded(Plasma::Applet *applet, const QPointF &po
     m_appletList << applet;
 
     kDebug() << "adding at" << axisY;
-    applet->setPos(0, axisY);
+    applet->setPos(0, axisY);*/
+
+    kDebug() << "I'm in ur containment, addin an applet";
+
+    m_layout->addItem(applet);
+
+    updateGeometry();
+
 }
 
 
 void ColumnsContainment::onAppletRemoved(Plasma::Applet *applet)
 {
-    // Returns incorrect height, probably due to the fact that the applet is no longer visible at that point
+    /*// Returns incorrect height, probably due to the fact that the applet is no longer visible at that point
     int removedHeight = applet->effectiveSizeHint(Qt::PreferredSize, QSizeF(boundingRect().width(), -1)).height();
 
     for (int i = m_appletList.size() - 1; i > m_appletList.indexOf(applet); --i)
@@ -65,7 +80,9 @@ void ColumnsContainment::onAppletRemoved(Plasma::Applet *applet)
         m_appletList.at(i)->moveBy(0, -removedHeight);
     }
 
-    m_appletList.removeAll(applet);
+    m_appletList.removeAll(applet);*/
+
+    m_layout->removeItem(applet);
 }
 
 K_EXPORT_PLASMA_APPLET( basket_containment_columns, ColumnsContainment )
